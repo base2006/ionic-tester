@@ -5,9 +5,9 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -24,8 +24,10 @@
       <ion-header-bar class="bar-stable">
         <h1 class="title">Ionic Blank Starter</h1>
       </ion-header-bar>
-      <ion-content>
+      <ion-content ng-controller="MapController">
+        <div id="map" data-tap-disabled="true"></div>
       </ion-content>
     </ion-pane>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAek0S-hL4jsUlY7JX3YLuLWA_ysdws0Pw&sensor=true"></script>
   </body>
 </html>
