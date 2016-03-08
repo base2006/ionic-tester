@@ -9730,3 +9730,11 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+/*----------------- CUSTOM STYLES -----------------*/
+#google-maps .scroll {
+  height: 100%; }
+
+#google-maps #map {
+  height: 100%;
+  width: 100%; }
