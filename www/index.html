@@ -7,7 +7,6 @@
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -21,13 +20,14 @@
   <body ng-app="starter">
 
     <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
-      </ion-header-bar>
-      <ion-content ng-controller="MapController">
-        <div id="map" data-tap-disabled="true"></div>
-      </ion-content>
+      <ion-nav-bar class="bar-stable bar-positive">
+          <ion-nav-buttons>
+              <a href="#/home" class="button icon-left ion-navicon"></a>
+          </ion-nav-buttons>
+    </ion-nav-bar>
+      <ion-nav-view></ion-nav-view>
     </ion-pane>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAek0S-hL4jsUlY7JX3YLuLWA_ysdws0Pw&sensor=true"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAek0S-hL4jsUlY7JX3YLuLWA_ysdws0Pw&sensor=true"></script> -->
   </body>
 </html>

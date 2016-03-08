@@ -3,9 +3,9 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var example = angular.module('starter', ['ionic'])
+var app = angular.module('starter', ['ionic'])
 
-.run(function($ionicPlatform) {
+app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -23,16 +23,50 @@ var example = angular.module('starter', ['ionic'])
   });
 });
 
-example.controller("MapController", function($scope){
-    google.maps.event.addDomListener(window, "load", function(){
-        var myLatlng = new google.maps.LatLng(51.271144, 6.044004);
+app.config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+
+    .state('home', {
+        url: '/home',
+        templateUrl: 'templates/menu.html',
+        controller: 'AppCtrl'
+    })
+
+    .state('maps', {
+        url: '/maps',
+        templateUrl: 'templates/maps.html',
+        controller: 'MapCtrl'
+    });
+    $urlRouterProvider.otherwise('/home');
+});
+
+app.controller("AppCtrl", function($scope) {
+
+});
+
+app.controller("MapCtrl", function($scope) {
+    $scope.init = function() {
+        var myLatlng = new google.maps.LatLng(51.271213, 6.044010);
         var mapOptions = {
             center: myLatlng,
-            zoom: 14,
+            zoom: 16,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+        var infowindow = new google.maps.InfoWindow({
+            content: '<h4>My Home!</h4>Wittebergstraat 60<br>5954 AK Beesel'
+        });
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'My home!'
+          });
+
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
         $scope.map = map;
-    });
+    };
 });
