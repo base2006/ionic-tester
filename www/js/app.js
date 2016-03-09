@@ -31,18 +31,21 @@ app.run(function($ionicPlatform) {
 app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
 
+    // menu
     .state('home', {
         url: '/home',
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl'
     })
 
+    // google maps
     .state('maps', {
         url: '/maps',
         templateUrl: 'templates/maps.html',
         controller: 'MapCtrl'
     })
 
+    // todo list
     .state('config', {
         url: '/todo',
         templateUrl: 'templates/config.html',
@@ -67,6 +70,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controller: 'ItemsCtrl'
     })
 
+    // contacts
+    .state('contacts', {
+        url: '/contacts',
+        templateUrl: 'templates/contacts.html',
+        controller: 'ContactCtrl'
+    })
+
     $urlRouterProvider.otherwise('/home');
 });
 
@@ -78,6 +88,7 @@ app.controller("AppCtrl", function($scope) {
 
 });
 
+// Google maps
 app.controller("MapCtrl", function($scope) {
     $scope.init = function() {
         var myLatlng = new google.maps.LatLng(51.271213, 6.044010);
@@ -105,6 +116,7 @@ app.controller("MapCtrl", function($scope) {
     };
 });
 
+// Todo list
 app.controller("ConfigCtrl", function($scope, $ionicLoading, $cordovaSQLite, $location, $ionicHistory, $ionicPlatform) {
     $ionicHistory.nextViewOptions({
         disableAnimate: true,
@@ -221,6 +233,37 @@ app.controller("ItemsCtrl", function($scope, $ionicPlatform, $cordovaSQLite, $st
             } else {
                 console.log("Action not completed");
             }
+        });
+    }
+});
+
+// Contacts
+app.controller("ContactCtrl", function($scope, $cordovaContacts, $ionicPlatform) {
+    $scope.getContactList = function() {
+        $cordovaContacts.find({}).then(function(result) {
+            $scope.contacts = result;
+        }, function(error) {
+            console.log(error);
+        });
+    }
+
+    $ionicPlatform.ready(function() {
+        $scope.getContactList();
+    });
+
+    $scope.createContact = function() {
+        $cordovaContacts.save({"displayName": "Dre Hendriks"}).then(function(result) {
+            $scope.getContactList();
+        }, function(error) {
+            console.log(error);
+        });
+    }
+
+    $scope.removeContact = function() {
+        $cordovaContacts.remove({"displayName": "Dre Hendriks"}).then(function(result) {
+            $scope.getContactList();
+        }, function(error) {
+            console.log(error);
         });
     }
 });
